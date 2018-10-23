@@ -19,11 +19,16 @@ app.set("view engine", "handlebars")
 // Index route
 app.get("/", (req, res) => {
     var searchString = req.query.term 
-
-    // TODO: can't read 'data' of undefined?
-    giphy.search(searchString, (err, response) => {
-        res.render("home", {gifs: response.data})
-      });
+    // Query string doesn't necessarily exist
+    if(searchString){
+        giphy.search(searchString, (err, response) => {
+            res.render("home", {gifs: response.data})
+          });
+    } else {
+        giphy.trending((err, response) => {
+            res.render("home", {gifs: response.data})
+        })
+    }
     
 });
 
