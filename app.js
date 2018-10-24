@@ -11,10 +11,11 @@ var giphy = require("giphy-api")()
 // Creating an instance of app through express
 var app = express();
 
-
 // Initialising express-handlebars
 app.engine("handlebars", handlebars({defaultLayout: "main"}));
 app.set("view engine", "handlebars")
+
+app.use(express.static("public"));
 
 // Index route
 app.get("/", (req, res) => {
